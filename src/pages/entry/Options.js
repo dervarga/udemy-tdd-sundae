@@ -4,8 +4,9 @@ import axios from 'axios'
 import Row from 'react-bootstrap/Row'
 
 import ScoopOption from './ScoopOption'
+import ToppingOption from './ToppingOption'
 
-const OPTION_TYPES = {
+export const OPTION_TYPES = {
   scoops: 'scoops',
   toppings: 'toppings',
 }
@@ -25,7 +26,8 @@ const Options = (props) => {
       })
   }, [optionType])
 
-  const ItemComponent = optionType === OPTION_TYPES.scoops ? ScoopOption : null
+  const ItemComponent =
+    optionType === OPTION_TYPES.scoops ? ScoopOption : ToppingOption
 
   const optionItems = items.map((item) => (
     <ItemComponent
