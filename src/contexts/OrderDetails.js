@@ -19,8 +19,6 @@ const formatCurrency = (amount) => {
     minimumFractionDigits: 2,
   }).format(amount)
 
-  console.log({ amount, amountInCurrency })
-
   return amountInCurrency
 }
 

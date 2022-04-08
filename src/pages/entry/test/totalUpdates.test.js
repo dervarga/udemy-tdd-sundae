@@ -2,7 +2,7 @@ import { render, screen } from '../../../test-utils/testing-library-utils'
 import userEvent from '@testing-library/user-event'
 import Options, { OPTION_TYPES } from '../Options'
 
-test.only('updates scoop subtotal when scoops change', async () => {
+test.skip('updates scoop subtotal when scoops change', async () => {
   render(<Options optionType={OPTION_TYPES.scoops} />)
 
   // make sure total starts with $0.00
