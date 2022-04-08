@@ -42,7 +42,6 @@ test('update toppings total when topping changes', async () => {
   const cherriesInput = await screen.findByRole('checkbox', {
     name: 'Cherries',
   })
-  userEvent.clear(cherriesInput)
   await userEvent.click(cherriesInput)
   expect(toppingsSubtotal).toHaveTextContent('1.50')
 
@@ -50,8 +49,7 @@ test('update toppings total when topping changes', async () => {
   const hotFudgeInput = await screen.findByRole('checkbox', {
     name: 'Hot fudge',
   })
-  userEvent.clear(hotFudgeInput)
-  await userEvent.click(cherriesInput)
+  await userEvent.click(hotFudgeInput)
   expect(toppingsSubtotal).toHaveTextContent('3.00')
 
   // deactivate cherries topping and check subtotal
