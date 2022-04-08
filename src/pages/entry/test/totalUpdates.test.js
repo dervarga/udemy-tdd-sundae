@@ -58,19 +58,28 @@ test('update toppings total when topping changes', async () => {
   expect(toppingsSubtotal).toHaveTextContent('1.50')
 })
 
-describe.only('grand total', () => {
-  test('grand total starts at $0.00', () => {
-    render(<OrderEntry />)
-    const grandTotal = screen.getByRole('heading', {
-      name: /Grand total: \$/i,
-    })
-    expect(grandTotal).toHaveTextContent('0.00')
-  })
+describe('grand total', () => {
+  /**
+   * 
+   *    // this will be tested in first test,it should not be separated.
+   // it might cause unmounted error
+ 
+   // test('grand total starts at $0.00', () => {
+   //   render(<OrderEntry />)
+   //   const grandTotal = screen.getByRole('heading', {
+   //     name: /Grand total: \$/i,
+   //   })
+   //   expect(grandTotal).toHaveTextContent('0.00')
+   // })
+   */
+
   test('grand total updates properly if scoop is added first', async () => {
     render(<OrderEntry />)
     const grandTotal = screen.getByRole('heading', {
       name: /grand total: \$/i,
     })
+
+    //check that grandtotal starts with 0.00
     expect(grandTotal).toHaveTextContent('0.00')
 
     const vanillaInput = await screen.findByRole('spinbutton', {

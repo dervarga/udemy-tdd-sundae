@@ -2,7 +2,6 @@ import React from 'react'
 
 import Options, { OPTION_TYPES } from './Options'
 import { useOrderDetails } from '../../contexts/OrderDetails'
-import { formatCurrency } from '../../helpers'
 
 const OrderEntry = () => {
   const [orderDetails] = useOrderDetails()
