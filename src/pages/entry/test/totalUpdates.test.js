@@ -2,7 +2,7 @@ import { render, screen } from '../../../test-utils/testing-library-utils'
 import userEvent from '@testing-library/user-event'
 import Options, { OPTION_TYPES } from '../Options'
 
-test.skip('updates scoop subtotal when scoops change', async () => {
+test('updates scoop subtotal when scoops change', async () => {
   render(<Options optionType={OPTION_TYPES.scoops} />)
 
   // make sure total starts with $0.00
@@ -14,9 +14,8 @@ test.skip('updates scoop subtotal when scoops change', async () => {
   const vanillaInput = await screen.findByRole('spinbutton', {
     name: 'Vanilla',
   })
-  console.log({ vanillaInput })
   userEvent.clear(vanillaInput)
-  userEvent.type(vanillaInput, '1')
+  await userEvent.type(vanillaInput, '1')
 
   expect(scoopsSubtotal).toHaveTextContent('2.00')
 
@@ -25,6 +24,6 @@ test.skip('updates scoop subtotal when scoops change', async () => {
     name: 'Chocolate',
   })
   userEvent.clear(chocolateInput)
-  userEvent.type(chocolateInput, '2')
+  await userEvent.type(chocolateInput, '2')
   expect(scoopsSubtotal).toHaveTextContent('6.00')
 })
