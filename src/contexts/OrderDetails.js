@@ -10,6 +10,20 @@ import { pricePerItem } from '../constants'
 
 const OrderDetails = createContext()
 
+// format number as currency
+
+const formatCurrency = (amount) => {
+  const amountInCurrency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+  }).format(amount)
+
+  console.log({ amount, amountInCurrency })
+
+  return amountInCurrency
+}
+
 // create custom hook to check whether we're inside a provider
 
 export const useOrderDetails = () => {
@@ -40,10 +54,12 @@ export const OrderDetailsProvider = (props) => {
     toppings: new Map(),
   })
 
+  const zeroCurrency = formatCurrency(0)
+
   const [totals, setTotals] = useState({
-    scoops: 0,
-    toppings: 0,
-    grandTotal: 0,
+    scoops: zeroCurrency,
+    toppings: zeroCurrency,
+    grandTotal: zeroCurrency,
   })
 
   useEffect(() => {
@@ -51,9 +67,9 @@ export const OrderDetailsProvider = (props) => {
     const toppingSubtotal = calculateSubtotal('toppings', optionCounts)
     const grandTotal = scoopsSubtotal + toppingSubtotal
     setTotals({
-      scoops: scoopsSubtotal,
-      toppings: toppingSubtotal,
-      grandTotal,
+      scoops: formatCurrency(scoopsSubtotal),
+      toppings: formatCurrency(toppingSubtotal),
+      grandTotal: formatCurrency(grandTotal),
     })
   }, [optionCounts])
 
@@ -74,5 +90,3 @@ export const OrderDetailsProvider = (props) => {
 
   return <OrderDetails.Provider value={value} {...props} />
 }
-
-export default OrderDetails
