@@ -20,7 +20,8 @@ test('handles errors for scoops and toppings routes', async () => {
     )
   )
 
-  render(<OrderEntry />)
+  // I might need setOrderPhase mock in order to keep test not failing
+  render(<OrderEntry setOrderPhase={jest.fn()} />)
 
   // in case for waiting for more responses, waitFor must be used
   await waitFor(async () => {
