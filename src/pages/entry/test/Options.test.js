@@ -1,6 +1,5 @@
 import { render, screen } from '../../../test-utils/testing-library-utils'
 import Options, { OPTION_TYPES } from '../Options'
-import { OrderDetailsProvider } from '../../../contexts/OrderDetails'
 
 describe('displays image for each option from the server', () => {
   test('displays image for each scoop from the server', async () => {

@@ -3,8 +3,9 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Popover from 'react-bootstrap/Popover'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import { ORDER_PHASES } from '../../constants'
 
-const SummaryForm = () => {
+const SummaryForm = ({ setOrderPhase }) => {
   const [accepted, setAccepted] = useState(false)
 
   const popover = (
@@ -32,7 +33,13 @@ const SummaryForm = () => {
           label={checkboxLabel}
         />
       </Form.Group>
-      <Button variant='primary' disabled={!accepted}>
+      <Button
+        variant='primary'
+        disabled={!accepted}
+        onClick={() => {
+          setOrderPhase && setOrderPhase(ORDER_PHASES.done)
+        }}
+      >
         Confirm order
       </Button>
     </Form>
