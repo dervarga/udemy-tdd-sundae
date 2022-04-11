@@ -31,7 +31,7 @@ test('handles errors for scoops and toppings routes', async () => {
   })
 })
 
-test.only('order button is disabled if no scoops are selected', async () => {
+test('order button is disabled if no scoops are selected', async () => {
   render(<OrderEntry setOrderPhase={jest.fn()} />)
   const orderButton = screen.getByRole('button', { name: 'Order' })
   expect(orderButton).toBeDisabled()

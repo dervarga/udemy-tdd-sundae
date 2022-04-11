@@ -8,7 +8,6 @@ import { ORDER_PHASES } from '../../constants'
 
 const OrderEntry = ({ setOrderPhase }) => {
   const [orderDetails] = useOrderDetails()
-  console.log({ orderDetails })
   // const isDisabled = () => {
   //   let isDisabled = true
   //   if (orderDetails[OPTION_TYPES.scoops].size === 0) return true
