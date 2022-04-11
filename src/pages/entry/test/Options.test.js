@@ -1,4 +1,5 @@
 import { render, screen } from '../../../test-utils/testing-library-utils'
+import userEvent from '@testing-library/user-event'
 import Options, { OPTION_TYPES } from '../Options'
 
 describe('displays image for each option from the server', () => {
@@ -29,5 +30,20 @@ describe('displays image for each option from the server', () => {
       'M&Ms topping',
       'Hot fudge topping',
     ])
+  })
+})
+
+describe.only('validation', () => {
+  test('subtotal does not update if input is invalid', async () => {
+    render(<Options optionType={OPTION_TYPES.scoops} />)
+
+    const vanillaInput = await screen.findByRole('spinbutton', {
+      name: 'Vanilla',
+    })
+    userEvent.clear(vanillaInput)
+    userEvent.type(vanillaInput, '-1')
+
+    const scoopsTotal = screen.getByText('Scoops total: $0.00')
+    expect(scoopsTotal).toBeInTheDocument()
   })
 })

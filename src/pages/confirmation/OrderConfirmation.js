@@ -47,7 +47,7 @@ const OrderConfirmation = ({ setOrderPhase }) => {
 }
 
 OrderConfirmation.propTypes = {
-  setOrderPhase: PropTypes.func,
+  setOrderPhase: PropTypes.func.isRequired,
 }
 
 export default OrderConfirmation

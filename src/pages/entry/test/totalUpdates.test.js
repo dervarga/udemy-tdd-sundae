@@ -127,9 +127,11 @@ describe('grand total', () => {
 
     userEvent.clear(chocolateInput)
     await userEvent.click(hotFudgeCheckbox)
+    await userEvent.clear(chocolateInput)
     await userEvent.type(chocolateInput, '2')
     expect(grandTotal).toHaveTextContent('5.50')
 
+    await userEvent.clear(chocolateInput)
     await userEvent.type(chocolateInput, '1')
     expect(grandTotal).toHaveTextContent('3.50')
 

@@ -14,17 +14,17 @@ const ScoopOptions = (props) => {
       target: { value: currentValue },
     } = event || {}
 
-    updateItemCount(name, currentValue)
-
     // making sure it is a number and not a string
     const currentValueFloat = parseFloat(currentValue)
 
-    // validate
-    setIsValid(
+    const valueIsValid =
       0 <= currentValueFloat &&
-        currentValueFloat <= 10 &&
-        Math.floor(currentValueFloat) === currentValueFloat
-    )
+      currentValueFloat <= 10 &&
+      Math.floor(currentValueFloat) === currentValueFloat
+
+    // validate
+    setIsValid(valueIsValid)
+    if (valueIsValid) updateItemCount(name, currentValue)
   }
   return (
     <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
