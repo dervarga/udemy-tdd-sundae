@@ -9,14 +9,16 @@ import { ORDER_PHASES } from '../../constants'
 const OrderEntry = ({ setOrderPhase }) => {
   const [orderDetails] = useOrderDetails()
   console.log({ orderDetails })
-  const isDisabled = () => {
-    let isDisabled = true
-    if (orderDetails[OPTION_TYPES.scoops].size === 0) return true
-    for (const value of orderDetails[OPTION_TYPES.scoops].values()) {
-      if (value !== 0) isDisabled = false
-    }
-    return isDisabled
-  }
+  // const isDisabled = () => {
+  //   let isDisabled = true
+  //   if (orderDetails[OPTION_TYPES.scoops].size === 0) return true
+  //   for (const value of orderDetails[OPTION_TYPES.scoops].values()) {
+  //     if (value !== 0) isDisabled = false
+  //   }
+  //   return isDisabled
+  // }
+
+  const isDisabled = orderDetails.totals.scoops === '$0.00'
 
   return (
     <div>
@@ -30,7 +32,7 @@ const OrderEntry = ({ setOrderPhase }) => {
         onClick={() => {
           setOrderPhase && setOrderPhase(ORDER_PHASES.inConfirmation)
         }}
-        disabled={isDisabled()}
+        disabled={isDisabled}
       >
         Order
       </Button>
