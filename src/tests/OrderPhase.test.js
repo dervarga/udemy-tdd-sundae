@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 
 import App from '../App'
 
-test.only('order phases for happy path', async () => {
+test('order phases for happy path', async () => {
   // render the app
   render(<App />)
   // add ice cream scoops and toppings
@@ -69,13 +69,30 @@ test.only('order phases for happy path', async () => {
   await userEvent.click(acceptCheckbox)
   await userEvent.click(confirmOrderButton)
 
+  // check loader
+
+  const loaderInConfirmationPage = screen.getByRole('heading', {
+    name: 'Loading',
+  })
+  expect(loaderInConfirmationPage).toBeInTheDocument()
+
+  const spinner = screen.getByRole('status')
+  expect(spinner).toBeInTheDocument()
+
   // confirm order number on confirmation page
   // await, because it makes an axios call on load
   // so we have to wait for that
+
   const confirmationHeader = await screen.findByRole('heading', {
     name: /Thank you!/,
   })
   expect(confirmationHeader).toBeInTheDocument()
+
+  // at this time the loader should not be in the document
+  // queryBy... because we expect it not to be in the document
+  // getBy would throw an error, our test would fail
+  const notLoading = screen.queryByText('loading')
+  expect(notLoading).not.toBeInTheDocument()
 
   const confirmationNumber = screen.getByRole('heading', {
     name: /order number/i,
@@ -98,4 +115,30 @@ test.only('order phases for happy path', async () => {
   // check inputs again, otherwise RTL gives error
   await screen.findByRole('spinbutton', { name: 'Vanilla' })
   screen.getByRole('checkbox', { name: 'Cherries' })
+})
+
+test('order phase happy path till order summary, without toppings', async () => {
+  render(<App />)
+
+  const chocolateInput = await screen.findByRole('spinbutton', {
+    name: /chocolate/i,
+  })
+  userEvent.clear(chocolateInput)
+  userEvent.type(chocolateInput, '2')
+
+  const orderButton = screen.getByRole('button', { name: 'Order' })
+  userEvent.click(orderButton)
+
+  const summaryHeader = await screen.findByRole('heading', {
+    name: /order summary/i,
+  })
+  expect(summaryHeader).toBeInTheDocument()
+
+  const scoopsHeader = screen.getByRole('heading', {
+    name: /scoops: /i,
+  })
+  expect(scoopsHeader).toBeInTheDocument()
+
+  const toppingsHeader = screen.queryByRole(/toppings:/i)
+  expect(toppingsHeader).not.toBeInTheDocument()
 })

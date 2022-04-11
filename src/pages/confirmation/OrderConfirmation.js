@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 import { ORDER_PHASES } from '../../constants'
 import { useOrderDetails } from '../../contexts/OrderDetails'
 import AlertBanner from '../common/AlertBanner'
+import Loader from '../common/Loader'
 
 const OrderConfirmation = ({ setOrderPhase }) => {
   const [, , resetItemCount] = useOrderDetails()
@@ -21,6 +22,10 @@ const OrderConfirmation = ({ setOrderPhase }) => {
 
   if (error) {
     return <AlertBanner />
+  }
+
+  if (!orderNumber) {
+    return <Loader />
   }
 
   return (

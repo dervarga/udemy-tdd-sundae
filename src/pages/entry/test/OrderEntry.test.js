@@ -29,3 +29,8 @@ test('handles errors for scoops and toppings routes', async () => {
     expect(alerts).toHaveLength(2)
   })
 })
+
+test.only('order button is disabled if no scoops are selected', async () => {
+  render(<OrderEntry />)
+  const orderButton = screen.getByRole('button', { name: 'Order' })
+})
