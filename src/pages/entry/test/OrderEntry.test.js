@@ -5,6 +5,7 @@ import {
 } from '../../../test-utils/testing-library-utils'
 import OrderEntry from '../OrderEntry'
 import { OPTION_TYPES } from '../Options'
+import userEvent from '@testing-library/user-event'
 
 import { rest } from 'msw'
 import { server } from '../../../mocks/server'
@@ -31,6 +32,21 @@ test('handles errors for scoops and toppings routes', async () => {
 })
 
 test.only('order button is disabled if no scoops are selected', async () => {
-  render(<OrderEntry />)
+  render(<OrderEntry setOrderPhase={jest.fn()} />)
   const orderButton = screen.getByRole('button', { name: 'Order' })
+  expect(orderButton).toBeDisabled()
+
+  const vanillaInput = await screen.findByRole('spinbutton', {
+    name: 'Vanilla',
+  })
+
+  // expect button to be enabled after adding scoop
+  userEvent.clear(vanillaInput)
+  await userEvent.type(vanillaInput, '1')
+  expect(orderButton).toBeEnabled()
+
+  // expect button to be disabled after removing scoop
+  userEvent.clear(vanillaInput)
+  await userEvent.type(vanillaInput, '0')
+  expect(orderButton).toBeDisabled()
 })
