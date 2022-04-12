@@ -33,7 +33,7 @@ describe('displays image for each option from the server', () => {
   })
 })
 
-describe.only('validation', () => {
+describe('validation', () => {
   test('subtotal does not update if input is invalid', async () => {
     render(<Options optionType={OPTION_TYPES.scoops} />)
 
